@@ -15,7 +15,6 @@ import edu.ucsb.cs156.example.entities.UCSBOrganization;
 import edu.ucsb.cs156.example.repositories.UCSBOrganizationRepository;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
-// import main.java.edu.ucsb.cs156.example.controllers.UCSBOrganizationController;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -202,4 +201,95 @@ public class OrganizationControllerTests extends ControllerTestCase {
     assertEquals("EntityNotFoundException", json.get("type"));
     assertEquals("UCSBOrganization with id ASB not found", json.get("message"));
   }
+
+  //   @WithMockUser(roles = {"ADMIN", "USER"})
+  //   @Test
+  //   public void admin_can_edit_an_existing_commons() throws Exception {
+  //     // arrange
+
+  //     UCSBDiningCommons carrilloOrig =
+  //         UCSBDiningCommons.builder()
+  //             .name("Carrillo")
+  //             .code("carrillo")
+  //             .hasSackMeal(false)
+  //             .hasTakeOutMeal(false)
+  //             .hasDiningCam(true)
+  //             .latitude(34.409953)
+  //             .longitude(-119.85277)
+  //             .build();
+
+  //     UCSBDiningCommons carrilloEdited =
+  //         UCSBDiningCommons.builder()
+  //             .name("Carrillo Dining Hall")
+  //             .code("carrillo")
+  //             .hasSackMeal(true)
+  //             .hasTakeOutMeal(true)
+  //             .hasDiningCam(false)
+  //             .latitude(34.409954)
+  //             .longitude(-119.85278)
+  //             .build();
+
+  //     String requestBody = mapper.writeValueAsString(carrilloEdited);
+
+  //     when(ucsbDiningCommonsRepository.findById(eq("carrillo")))
+  //         .thenReturn(Optional.of(carrilloOrig));
+
+  //     // act
+  //     MvcResult response =
+  //         mockMvc
+  //             .perform(
+  //                 put("/api/ucsbdiningcommons?code=carrillo")
+  //                     .contentType(MediaType.APPLICATION_JSON)
+  //                     .characterEncoding("utf-8")
+  //                     .content(requestBody)
+  //                     .with(csrf()))
+  //             .andExpect(status().isOk())
+  //             .andReturn();
+
+  //     // assert
+  //     verify(ucsbDiningCommonsRepository, times(1)).findById("carrillo");
+  //     verify(ucsbDiningCommonsRepository, times(1))
+  //         .save(carrilloEdited); // should be saved with updated info
+  //     String responseString = response.getResponse().getContentAsString();
+  //     assertEquals(requestBody, responseString);
+  //   }
+
+  //   @WithMockUser(roles = {"ADMIN", "USER"})
+  //   @Test
+  //   public void admin_cannot_edit_commons_that_does_not_exist() throws Exception {
+  //     // arrange
+
+  //     UCSBDiningCommons editedCommons =
+  //         UCSBDiningCommons.builder()
+  //             .name("Munger Hall")
+  //             .code("munger-hall")
+  //             .hasSackMeal(false)
+  //             .hasTakeOutMeal(false)
+  //             .hasDiningCam(true)
+  //             .latitude(34.420799)
+  //             .longitude(-119.852617)
+  //             .build();
+
+  //     String requestBody = mapper.writeValueAsString(editedCommons);
+
+  //     when(ucsbDiningCommonsRepository.findById(eq("munger-hall"))).thenReturn(Optional.empty());
+
+  //     // act
+  //     MvcResult response =
+  //         mockMvc
+  //             .perform(
+  //                 put("/api/ucsbdiningcommons?code=munger-hall")
+  //                     .contentType(MediaType.APPLICATION_JSON)
+  //                     .characterEncoding("utf-8")
+  //                     .content(requestBody)
+  //                     .with(csrf()))
+  //             .andExpect(status().isNotFound())
+  //             .andReturn();
+
+  //     // assert
+  //     verify(ucsbDiningCommonsRepository, times(1)).findById("munger-hall");
+  //     Map<String, Object> json = responseToJson(response);
+  //     assertEquals("UCSBDiningCommons with id munger-hall not found", json.get("message"));
+  //   }
+
 }
