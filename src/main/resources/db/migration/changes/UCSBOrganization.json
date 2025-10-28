@@ -1,0 +1,61 @@
+{
+    "databaseChangeLog": [
+      {
+        "changeSet": {
+          "id": "UCSBOrganization-1",
+          "author": "davidbazan383",
+          "preConditions": [
+            {
+              "onFail": "MARK_RAN"
+            },
+            {
+              "not": [
+                {
+                  "tableExists": {
+                    "tableName": "UCSBOrganization"
+                  }
+                }
+              ]
+            }
+          ],
+          "changes": [
+            {
+              "createTable": {
+                "columns": [
+                  {
+                    "column": {
+                      "constraints": {
+                        "primaryKey": true,
+                        "primaryKeyName": "UCSBOrganization_PK"
+                      },
+                      "name": "ORGCODE",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "ORGTRANSLATIONSHORT",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "ORGTRANSLATION",
+                      "type": "VARCHAR(255)"
+                    }
+                  },
+                  {
+                    "column": {
+                      "name": "INACTIVE",
+                      "type": "BOOLEAN"
+                    }
+                  }
+                ],
+                "tableName": "UCSBOrganization"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
