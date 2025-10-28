@@ -79,7 +79,7 @@ public class OrganizationControllerTests extends ControllerTestCase {
     UCSBOrganization zpr =
         UCSBOrganization.builder()
             .orgTranslation("Zeta Phi Rho")
-            .orgCode("AB")
+            .orgCode("zpr")
             .orgTranslationShort("Zeta Phi Rho")
             .inactive(false)
             .build();
@@ -111,7 +111,7 @@ public class OrganizationControllerTests extends ControllerTestCase {
             .orgTranslation("Korean_Radio_Club")
             .orgCode("krc")
             .orgTranslationShort("Korean_Radio_Cl")
-            .inactive(false)
+            .inactive(true)
             .build();
 
     when(ucsbOrganizationRepository.save(eq(krc))).thenReturn(krc);
@@ -120,7 +120,7 @@ public class OrganizationControllerTests extends ControllerTestCase {
     MvcResult response =
         mockMvc
             .perform(
-                post("/api/ucsborganization/post?orgTranslation=Korean_Radio_Club&orgCode=krc&orgTranslationShort=Korean_Radio_Cl&inactive=false")
+                post("/api/ucsborganization/post?orgTranslation=Korean_Radio_Club&orgCode=krc&orgTranslationShort=Korean_Radio_Cl&inactive=true")
                     .with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
@@ -130,5 +130,10 @@ public class OrganizationControllerTests extends ControllerTestCase {
     String expectedJson = mapper.writeValueAsString(krc);
     String responseString = response.getResponse().getContentAsString();
     assertEquals(expectedJson, responseString);
+
+    // Check inactive
+    UCSBOrganization save =
+        mapper.readValue(response.getResponse().getContentAsString(), UCSBOrganization.class);
+    assertEquals(true, save.getInactive());
   }
 }
