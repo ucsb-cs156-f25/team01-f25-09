@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import edu.ucsb.cs156.example.ControllerTestCase;
@@ -23,6 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -202,94 +204,83 @@ public class OrganizationControllerTests extends ControllerTestCase {
     assertEquals("UCSBOrganization with id ASB not found", json.get("message"));
   }
 
-  //   @WithMockUser(roles = {"ADMIN", "USER"})
-  //   @Test
-  //   public void admin_can_edit_an_existing_commons() throws Exception {
-  //     // arrange
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_can_edit_an_existing_organization() throws Exception {
+    // arrange
 
-  //     UCSBDiningCommons carrilloOrig =
-  //         UCSBDiningCommons.builder()
-  //             .name("Carrillo")
-  //             .code("carrillo")
-  //             .hasSackMeal(false)
-  //             .hasTakeOutMeal(false)
-  //             .hasDiningCam(true)
-  //             .latitude(34.409953)
-  //             .longitude(-119.85277)
-  //             .build();
+    UCSBOrganization WaterPoloClubOrig =
+        UCSBOrganization.builder()
+            .orgTranslation("Water Polo Club")
+            .orgCode("WPC")
+            .orgTranslationShort("Water Polo")
+            .inactive(false)
+            .build();
 
-  //     UCSBDiningCommons carrilloEdited =
-  //         UCSBDiningCommons.builder()
-  //             .name("Carrillo Dining Hall")
-  //             .code("carrillo")
-  //             .hasSackMeal(true)
-  //             .hasTakeOutMeal(true)
-  //             .hasDiningCam(false)
-  //             .latitude(34.409954)
-  //             .longitude(-119.85278)
-  //             .build();
+    UCSBOrganization WaterPoloClubEdited =
+        UCSBOrganization.builder()
+            .orgTranslation("Water Polo")
+            .orgCode("WPC")
+            .orgTranslationShort("Water P")
+            .inactive(true)
+            .build();
 
-  //     String requestBody = mapper.writeValueAsString(carrilloEdited);
+    String requestBody = mapper.writeValueAsString(WaterPoloClubEdited);
 
-  //     when(ucsbDiningCommonsRepository.findById(eq("carrillo")))
-  //         .thenReturn(Optional.of(carrilloOrig));
+    when(ucsbOrganizationRepository.findById(eq("WPC"))).thenReturn(Optional.of(WaterPoloClubOrig));
 
-  //     // act
-  //     MvcResult response =
-  //         mockMvc
-  //             .perform(
-  //                 put("/api/ucsbdiningcommons?code=carrillo")
-  //                     .contentType(MediaType.APPLICATION_JSON)
-  //                     .characterEncoding("utf-8")
-  //                     .content(requestBody)
-  //                     .with(csrf()))
-  //             .andExpect(status().isOk())
-  //             .andReturn();
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(
+                put("/api/ucsborganization?orgCode=WPC")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("utf-8")
+                    .content(requestBody)
+                    .with(csrf()))
+            .andExpect(status().isOk())
+            .andReturn();
 
-  //     // assert
-  //     verify(ucsbDiningCommonsRepository, times(1)).findById("carrillo");
-  //     verify(ucsbDiningCommonsRepository, times(1))
-  //         .save(carrilloEdited); // should be saved with updated info
-  //     String responseString = response.getResponse().getContentAsString();
-  //     assertEquals(requestBody, responseString);
-  //   }
+    // assert
+    verify(ucsbOrganizationRepository, times(1)).findById("WPC");
+    verify(ucsbOrganizationRepository, times(1))
+        .save(WaterPoloClubEdited); // should be saved with updated info
+    String responseString = response.getResponse().getContentAsString();
+    assertEquals(requestBody, responseString);
+  }
 
-  //   @WithMockUser(roles = {"ADMIN", "USER"})
-  //   @Test
-  //   public void admin_cannot_edit_commons_that_does_not_exist() throws Exception {
-  //     // arrange
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_cannot_edit_organization_that_does_not_exist() throws Exception {
+    // arrange
 
-  //     UCSBDiningCommons editedCommons =
-  //         UCSBDiningCommons.builder()
-  //             .name("Munger Hall")
-  //             .code("munger-hall")
-  //             .hasSackMeal(false)
-  //             .hasTakeOutMeal(false)
-  //             .hasDiningCam(true)
-  //             .latitude(34.420799)
-  //             .longitude(-119.852617)
-  //             .build();
+    UCSBOrganization editedOrganization =
+        UCSBOrganization.builder()
+            .orgTranslation("SB-Hacks")
+            .orgCode("SBH")
+            .orgTranslationShort("SB-Hacks")
+            .inactive(false)
+            .build();
 
-  //     String requestBody = mapper.writeValueAsString(editedCommons);
+    String requestBody = mapper.writeValueAsString(editedOrganization);
 
-  //     when(ucsbDiningCommonsRepository.findById(eq("munger-hall"))).thenReturn(Optional.empty());
+    when(ucsbOrganizationRepository.findById(eq("SB-Hacks"))).thenReturn(Optional.empty());
 
-  //     // act
-  //     MvcResult response =
-  //         mockMvc
-  //             .perform(
-  //                 put("/api/ucsbdiningcommons?code=munger-hall")
-  //                     .contentType(MediaType.APPLICATION_JSON)
-  //                     .characterEncoding("utf-8")
-  //                     .content(requestBody)
-  //                     .with(csrf()))
-  //             .andExpect(status().isNotFound())
-  //             .andReturn();
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(
+                put("/api/ucsborganization?orgCode=SB-Hacks")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("utf-8")
+                    .content(requestBody)
+                    .with(csrf()))
+            .andExpect(status().isNotFound())
+            .andReturn();
 
-  //     // assert
-  //     verify(ucsbDiningCommonsRepository, times(1)).findById("munger-hall");
-  //     Map<String, Object> json = responseToJson(response);
-  //     assertEquals("UCSBDiningCommons with id munger-hall not found", json.get("message"));
-  //   }
-
+    // assert
+    verify(ucsbOrganizationRepository, times(1)).findById("SB-Hacks");
+    Map<String, Object> json = responseToJson(response);
+    assertEquals("UCSBOrganization with id SB-Hacks not found", json.get("message"));
+  }
 }
