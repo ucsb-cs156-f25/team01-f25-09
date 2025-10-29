@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -14,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import edu.ucsb.cs156.example.ControllerTestCase;
 import edu.ucsb.cs156.example.entities.Article;
-import edu.ucsb.cs156.example.entities.UCSBDate;
 import edu.ucsb.cs156.example.repositories.ArticlesRepository;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
@@ -201,19 +201,21 @@ public class ArticlesControllerTests extends ControllerTestCase {
 
   @WithMockUser(roles = {"ADMIN", "USER"})
   @Test
-  public void admin_can_delete_a_date() throws Exception {
+  public void admin_can_delete_an_article() throws Exception {
     // arrange
 
     LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-    UCSBDate ucsbDate1 =
-        UCSBDate.builder()
-            .name("firstDayOfClasses")
-            .quarterYYYYQ("20222")
-            .localDateTime(ldt1)
+    Article article1 =
+        Article.builder()
+            .title("firstDayOfClasses")
+            .url("http://example.com/article1")
+            .explanation("This is a test article 1")
+            .email("example@example.com")
+            .dateAdded(ldt1)
             .build();
 
-    when(articlesRepository.findById(eq(15L))).thenReturn(Optional.of(ucsbDate1));
+    when(articlesRepository.findById(eq(15L))).thenReturn(Optional.of(article1));
 
     // act
     MvcResult response =
@@ -273,7 +275,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
             .title("firstDayOfFestivus")
             .url("http://example.com/article1-edited")
             .explanation("This is a test article 1 - edited")
-            .email("example@example.com")
+            .email("example-1@example.com")
             .dateAdded(ldt2)
             .build();
 
