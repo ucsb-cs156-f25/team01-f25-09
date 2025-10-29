@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import edu.ucsb.cs156.example.ControllerTestCase;
@@ -24,6 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -262,94 +264,94 @@ public class HelpRequestControllerTests extends ControllerTestCase {
   //     assertEquals("HelpRequest with id 15 not found", json.get("message"));
   //   }
 
-  //   @WithMockUser(roles = {"ADMIN", "USER"})
-  //   @Test
-  //   public void admin_can_edit_an_existing_helprequest() throws Exception {
-  //     // arrange
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_can_edit_an_existing_helprequest() throws Exception {
+    // arrange
 
-  //     LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
-  //     LocalDateTime ldt2 = LocalDateTime.parse("2023-01-03T00:00:00");
+    LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+    LocalDateTime ldt2 = LocalDateTime.parse("2023-01-03T00:00:00");
 
-  //     HelpRequest helpRequestOrig =
-  //         HelpRequest.builder()
-  //             .requesterEmail("test1@ucsb.edu")
-  //             .teamId("testId1")
-  //             .tableOrBreakoutRoom("test_table1")
-  //             .requestTime(ldt1)
-  //             .explanation("This is a test!")
-  //             .solved(true)
-  //             .build();
+    HelpRequest helpRequestOrig =
+        HelpRequest.builder()
+            .requesterEmail("test1@ucsb.edu")
+            .teamId("testId1")
+            .tableOrBreakoutRoom("test_table1")
+            .requestTime(ldt1)
+            .explanation("This is a test!")
+            .solved(true)
+            .build();
 
-  //     HelpRequest helpRequestEdited =
-  //         HelpRequest.builder()
-  //             .requesterEmail("test2@ucsb.edu")
-  //             .teamId("testId2")
-  //             .tableOrBreakoutRoom("test_table2")
-  //             .requestTime(ldt2)
-  //             .explanation("This is a test!")
-  //             .solved(true)
-  //             .build();
+    HelpRequest helpRequestEdited =
+        HelpRequest.builder()
+            .requesterEmail("test2@ucsb.edu")
+            .teamId("testId2")
+            .tableOrBreakoutRoom("test_table2")
+            .requestTime(ldt2)
+            .explanation("This is a test 2!")
+            .solved(false)
+            .build();
 
-  //     String requestBody = mapper.writeValueAsString(helpRequestEdited);
+    String requestBody = mapper.writeValueAsString(helpRequestEdited);
 
-  //     when(helpRequestRepository.findById(eq(67L))).thenReturn(Optional.of(helpRequestOrig));
+    when(helpRequestRepository.findById(eq(67L))).thenReturn(Optional.of(helpRequestOrig));
 
-  //     // act
-  //     MvcResult response =
-  //         mockMvc
-  //             .perform(
-  //                 put("/api/helprequest?id=67")
-  //                     .contentType(MediaType.APPLICATION_JSON)
-  //                     .characterEncoding("utf-8")
-  //                     .content(requestBody)
-  //                     .with(csrf()))
-  //             .andExpect(status().isOk())
-  //             .andReturn();
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(
+                put("/api/helprequest?id=67")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("utf-8")
+                    .content(requestBody)
+                    .with(csrf()))
+            .andExpect(status().isOk())
+            .andReturn();
 
-  //     // assert
-  //     verify(helpRequestRepository, times(1)).findById(67L);
-  //     verify(helpRequestRepository, times(1)).save(helpRequestEdited); // should be saved with
-  // correct user
-  //     String responseString = response.getResponse().getContentAsString();
-  //     assertEquals(requestBody, responseString);
-  //   }
+    // assert
+    verify(helpRequestRepository, times(1)).findById(67L);
+    verify(helpRequestRepository, times(1)).save(helpRequestEdited); // should be saved with
+    //   correct user
+    String responseString = response.getResponse().getContentAsString();
+    assertEquals(requestBody, responseString);
+  }
 
-  //   @WithMockUser(roles = {"ADMIN", "USER"})
-  //   @Test
-  //   public void admin_cannot_edit_helprequest_that_does_not_exist() throws Exception {
-  //     // arrange
+  @WithMockUser(roles = {"ADMIN", "USER"})
+  @Test
+  public void admin_cannot_edit_helprequest_that_does_not_exist() throws Exception {
+    // arrange
 
-  //     LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+    LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-  //     HelpRequest helpRequestEdited =
-  //         HelpRequest.builder()
-  //             .requesterEmail("test1@ucsb.edu")
-  //             .teamId("testId1")
-  //             .tableOrBreakoutRoom("test_table1")
-  //             .requestTime(ldt1)
-  //             .explanation("This is a test!")
-  //             .solved(true)
-  //             .build();
+    HelpRequest helpRequestEdited =
+        HelpRequest.builder()
+            .requesterEmail("test1@ucsb.edu")
+            .teamId("testId1")
+            .tableOrBreakoutRoom("test_table1")
+            .requestTime(ldt1)
+            .explanation("This is a test!")
+            .solved(true)
+            .build();
 
-  //     String requestBody = mapper.writeValueAsString(helpRequestEdited);
+    String requestBody = mapper.writeValueAsString(helpRequestEdited);
 
-  //     when(helpRequestRepository.findById(eq(67L))).thenReturn(Optional.empty());
+    when(helpRequestRepository.findById(eq(67L))).thenReturn(Optional.empty());
 
-  //     // act
-  //     MvcResult response =
-  //         mockMvc
-  //             .perform(
-  //                 put("/api/helprequest?id=67")
-  //                     .contentType(MediaType.APPLICATION_JSON)
-  //                     .characterEncoding("utf-8")
-  //                     .content(requestBody)
-  //                     .with(csrf()))
-  //             .andExpect(status().isNotFound())
-  //             .andReturn();
+    // act
+    MvcResult response =
+        mockMvc
+            .perform(
+                put("/api/helprequest?id=67")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding("utf-8")
+                    .content(requestBody)
+                    .with(csrf()))
+            .andExpect(status().isNotFound())
+            .andReturn();
 
-  //     // assert
-  //     verify(helpRequestRepository, times(1)).findById(67L);
-  //     Map<String, Object> json = responseToJson(response);
-  //     assertEquals("HelpRequest with id 67 not found", json.get("message"));
-  //   }
+    // assert
+    verify(helpRequestRepository, times(1)).findById(67L);
+    Map<String, Object> json = responseToJson(response);
+    assertEquals("HelpRequest with id 67 not found", json.get("message"));
+  }
 }
