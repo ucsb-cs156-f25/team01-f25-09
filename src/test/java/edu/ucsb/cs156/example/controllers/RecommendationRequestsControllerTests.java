@@ -351,8 +351,6 @@ public class RecommendationRequestsControllerTests extends ControllerTestCase {
 
     String requestBody = mapper.writeValueAsString(rrEditedIncoming);
 
-    // this is what the repo returns AFTER save
-    // (often you just return the 'incoming' back anyway, so this is okay)
     when(recommendationRequestRepository.findById(eq(67L))).thenReturn(Optional.of(rrOriginal));
 
     when(recommendationRequestRepository.save(any(RecommendationRequest.class)))
@@ -371,7 +369,6 @@ public class RecommendationRequestsControllerTests extends ControllerTestCase {
             .andReturn();
 
     // assert:
-    // capture what controller actually tried to save
     ArgumentCaptor<RecommendationRequest> captor =
         ArgumentCaptor.forClass(RecommendationRequest.class);
     verify(recommendationRequestRepository, times(1)).findById(67L);
@@ -379,12 +376,9 @@ public class RecommendationRequestsControllerTests extends ControllerTestCase {
 
     RecommendationRequest savedArg = captor.getValue();
 
-    // Now verify ALL fields were copied into what was saved
-    // (This is where we kill the mutants that removed setRequesterEmail / setProfessorEmail)
     assertEquals("CMPSC156-UpdatedLetter", savedArg.getCode());
-    assertEquals(
-        "student@ucsb.edu", savedArg.getRequesterEmail()); // kills setRequesterEmail mutant
-    assertEquals("prof@ucsb.edu", savedArg.getProfessorEmail()); // kills setProfessorEmail mutant
+    assertEquals("student@ucsb.edu", savedArg.getRequesterEmail());
+    assertEquals("prof@ucsb.edu", savedArg.getProfessorEmail());
     assertEquals("Updated info and deadlines.", savedArg.getExplanation());
     assertEquals(newReqDate, savedArg.getDateRequested());
     assertEquals(newNeedDate, savedArg.getDateNeeded());
