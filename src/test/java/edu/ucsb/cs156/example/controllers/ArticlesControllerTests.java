@@ -219,7 +219,7 @@ public class ArticlesControllerTests extends ControllerTestCase {
             .title("firstDayOfFestivus")
             .url("http://example.com/article1-edited")
             .explanation("This is a test article 1 - edited")
-            .email("example@example.com")
+            .email("example-1@example.com")
             .dateAdded(ldt2)
             .build();
 
