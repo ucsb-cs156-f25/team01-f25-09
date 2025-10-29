@@ -137,11 +137,14 @@ import org.springframework.web.bind.annotation.RestController;
   }
 
   /**
-   * Update a single recommendation request
+   * Update an existing RecommendationRequest identified by id.
    *
-   * @param id id of the request to update
-   * @param incoming new values for the request
-   * @return the updated RecommendationRequest object
+   * @param id the id of the RecommendationRequest to update
+   * @param incoming the new field values for this RecommendationRequest (code, requesterEmail,
+   *     professorEmail, explanation, dateRequested, dateNeeded, done)
+   * @return the updated RecommendationRequest, after saving
+   * @throws edu.ucsb.cs156.example.errors.EntityNotFoundException if no RecommendationRequest with
+   *     that id exists
    */
   @Operation(summary = &quot;Update a single recommendation request&quot;)
   @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
@@ -150,22 +153,22 @@ import org.springframework.web.bind.annotation.RestController;
       @Parameter(name = &quot;id&quot;) @RequestParam Long id,
       @RequestBody @Valid RecommendationRequest incoming) {
 
-<span class="fc" id="L153">    RecommendationRequest rr =</span>
+<span class="fc" id="L156">    RecommendationRequest rr =</span>
         recommendationRequestRepository
-<span class="fc" id="L155">            .findById(id)</span>
-<span class="fc" id="L156">            .orElseThrow(() -&gt; new EntityNotFoundException(RecommendationRequest.class, id));</span>
+<span class="fc" id="L158">            .findById(id)</span>
+<span class="fc" id="L159">            .orElseThrow(() -&gt; new EntityNotFoundException(RecommendationRequest.class, id));</span>
 
-<span class="fc" id="L158">    rr.setCode(incoming.getCode());</span>
-<span class="fc" id="L159">    rr.setRequesterEmail(incoming.getRequesterEmail());</span>
-<span class="fc" id="L160">    rr.setProfessorEmail(incoming.getProfessorEmail());</span>
-<span class="fc" id="L161">    rr.setExplanation(incoming.getExplanation());</span>
-<span class="fc" id="L162">    rr.setDateRequested(incoming.getDateRequested());</span>
-<span class="fc" id="L163">    rr.setDateNeeded(incoming.getDateNeeded());</span>
-<span class="fc" id="L164">    rr.setDone(incoming.getDone());</span>
+<span class="fc" id="L161">    rr.setCode(incoming.getCode());</span>
+<span class="fc" id="L162">    rr.setRequesterEmail(incoming.getRequesterEmail());</span>
+<span class="fc" id="L163">    rr.setProfessorEmail(incoming.getProfessorEmail());</span>
+<span class="fc" id="L164">    rr.setExplanation(incoming.getExplanation());</span>
+<span class="fc" id="L165">    rr.setDateRequested(incoming.getDateRequested());</span>
+<span class="fc" id="L166">    rr.setDateNeeded(incoming.getDateNeeded());</span>
+<span class="fc" id="L167">    rr.setDone(incoming.getDone());</span>
 
-<span class="fc" id="L166">    recommendationRequestRepository.save(rr);</span>
+<span class="fc" id="L169">    recommendationRequestRepository.save(rr);</span>
 
-<span class="fc" id="L168">    return rr;</span>
+<span class="fc" id="L171">    return rr;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
