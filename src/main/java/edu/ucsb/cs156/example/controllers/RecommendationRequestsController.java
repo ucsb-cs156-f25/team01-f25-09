@@ -137,11 +137,14 @@ public class RecommendationRequestsController extends ApiController {
   }
 
   /**
-   * Update a single recommendation request
+   * Update an existing RecommendationRequest identified by id.
    *
-   * @param id id of the request to update
-   * @param incoming new values for the request
-   * @return the updated RecommendationRequest object
+   * @param id the id of the RecommendationRequest to update
+   * @param incoming the new field values for this RecommendationRequest (code, requesterEmail,
+   *     professorEmail, explanation, dateRequested, dateNeeded, done)
+   * @return the updated RecommendationRequest, after saving
+   * @throws edu.ucsb.cs156.example.errors.EntityNotFoundException if no RecommendationRequest with
+   *     that id exists
    */
   @Operation(summary = "Update a single recommendation request")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
