@@ -64,12 +64,17 @@ public class RecommendationRequestsController extends ApiController {
   }
 
   /**
-   * Create a new date
+   * Create a new recommendation request.
    *
-   * @param quarterYYYYQ the quarter in the format YYYYQ
-   * @param name the name of the date
-   * @param localDateTime the date
-   * @return the saved ucsbdate
+   * @param code a short code or identifier for the request (e.g. course/letter type)
+   * @param requesterEmail the student's email requesting the recommendation
+   * @param professorEmail the professor's email who is being asked
+   * @param explanation context/reason for the request
+   * @param dateRequested when the request was made (ISO 8601, e.g. 2025-01-10T12:00:00)
+   * @param dateNeeded when the letter/recommendation is needed by (ISO 8601)
+   * @param done whether the recommendation has already been completed
+   * @return the saved RecommendationRequest, including any generated id
+   * @throws com.fasterxml.jackson.core.JsonProcessingException if there is an issue processing JSON
    */
   @Operation(summary = "Create a new RecommendationRequest")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
