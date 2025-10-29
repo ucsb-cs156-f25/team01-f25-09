@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(&quot;/api/articles&quot;)
 @RestController
 <span class="fc" id="L25">@Slf4j</span>
-<span class="fc" id="L26">public class ArticlesController {</span>
+<span class="fc" id="L26">public class ArticlesController extends ApiController {</span>
 
   @Autowired ArticlesRepository articlesRepository;
 
@@ -50,12 +50,12 @@ import org.springframework.web.bind.annotation.RestController;
   @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
   @GetMapping(&quot;&quot;)
   public Article getById(@Parameter(name = &quot;id&quot;) @RequestParam Long id) {
-<span class="nc" id="L53">    Article article =</span>
+<span class="fc" id="L53">    Article article =</span>
         articlesRepository
-<span class="nc" id="L55">            .findById(id)</span>
-<span class="nc" id="L56">            .orElseThrow(() -&gt; new EntityNotFoundException(Article.class, id));</span>
+<span class="fc" id="L55">            .findById(id)</span>
+<span class="fc" id="L56">            .orElseThrow(() -&gt; new EntityNotFoundException(Article.class, id));</span>
 
-<span class="nc" id="L58">    return article;</span>
+<span class="fc" id="L58">    return article;</span>
   }
 
   /**
