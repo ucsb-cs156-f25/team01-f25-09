@@ -96,9 +96,6 @@ public class RecommendationRequestsController extends ApiController {
       @Parameter(name = "done") @RequestParam boolean done)
       throws JsonProcessingException {
 
-    // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    // See: https://www.baeldung.com/spring-date-parameters
-
     log.info("dateRequested={}", dateRequested);
     log.info("dateNeeded={}", dateNeeded);
 
