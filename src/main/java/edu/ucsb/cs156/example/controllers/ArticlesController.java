@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -98,11 +99,30 @@ public class ArticlesController extends ApiController {
   }
 
   /**
-   * Update a single date
+   * Delete a article
    *
-   * @param id id of the date to update
-   * @param incoming the new date
-   * @return the updated date object
+   * @param id the id of the article to delete
+   * @return a message indicating the article was deleted
+   */
+  @Operation(summary = "Delete a article")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @DeleteMapping("")
+  public Object deleteArticle(@Parameter(name = "id") @RequestParam Long id) {
+    Article article =
+        articlesRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException(Article.class, id));
+
+    articlesRepository.delete(article);
+    return genericMessage("Article with id %s deleted".formatted(id));
+  }
+
+  /**
+   * Update a single article
+   *
+   * @param id id of the article to update
+   * @param incoming the new article
+   * @return the updated article object
    */
   @Operation(summary = "Update a single article")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
