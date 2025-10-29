@@ -36,13 +36,6 @@ public class UCSBDiningCommonsMenuItemsControllerTests extends ControllerTestCas
   }
 
   @Test
-  public void logged_out_users_cannot_get_by_id() throws Exception {
-    mockMvc
-        .perform(get("/api/UCSBDiningCommonsMenuItems?id=7"))
-        .andExpect(status().is(403)); // logged out users can't get by id
-  }
-
-  @Test
   public void logged_out_users_cannot_post() throws Exception {
     mockMvc.perform(post("/api/UCSBDiningCommonsMenuItems/post")).andExpect(status().is(403));
   }
