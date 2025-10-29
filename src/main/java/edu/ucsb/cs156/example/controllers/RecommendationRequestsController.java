@@ -46,10 +46,11 @@ public class RecommendationRequestsController extends ApiController {
   }
 
   /**
-   * Get a single recommendationRequest by id
+   * Look up a single RecommendationRequest by id.
    *
-   * @param id the id of the date
-   * @return a recommendationrequest
+   * @param id the id of the RecommendationRequest to retrieve
+   * @return the matching RecommendationRequest as JSON
+   * @throws edu.ucsb.cs156.example.errors.EntityNotFoundException if no record with that id exists
    */
   @Operation(summary = "Get a single recommendationRequest")
   @PreAuthorize("hasRole('ROLE_USER')")
