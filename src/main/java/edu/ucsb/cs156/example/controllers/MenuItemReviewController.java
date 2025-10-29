@@ -7,6 +7,7 @@ import edu.ucsb.cs156.example.repositories.MenuItemReviewRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -92,6 +95,44 @@ public class MenuItemReviewController extends ApiController {
         menuItemReviewRepository
             .findById(id)
             .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
+
+    return menuItemReview1;
+  }
+
+  /**
+   * Update a single menuitemreview
+   *
+   * @param id id of the menuitemreview to update
+   * @param incoming the new menuitemreview
+   * @return the updated date object
+   */
+  @Operation(summary = "Update a single menu item review")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PutMapping("")
+  public MenuItemReview updateMenuItemReview(
+      @Parameter(name = "id") @RequestParam Long id, @RequestBody @Valid MenuItemReview incoming) {
+
+    MenuItemReview menuItemReview1 =
+        menuItemReviewRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException(MenuItemReview.class, id));
+
+    /*
+
+      private long itemId;
+      private String reviewerEmail;
+      private int stars;
+      private LocalDateTime dateReviewed;
+      private String comments;
+    */
+
+    menuItemReview1.setItemId(incoming.getItemId());
+    menuItemReview1.setReviewerEmail(incoming.getReviewerEmail());
+    menuItemReview1.setStars(incoming.getStars());
+    menuItemReview1.setComments(incoming.getComments());
+    menuItemReview1.setDateReviewed(incoming.getDateReviewed());
+
+    menuItemReviewRepository.save(menuItemReview1);
 
     return menuItemReview1;
   }
