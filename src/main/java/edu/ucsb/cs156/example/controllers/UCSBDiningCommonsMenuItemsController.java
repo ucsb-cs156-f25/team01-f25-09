@@ -41,17 +41,17 @@ public class UCSBDiningCommonsMenuItemsController extends ApiController {
    * Get a single item by id
    *
    * @param id the id of the item
-   * @return a UCSBDiningCommonsMenuItem
+   * @return a item
    */
   @Operation(summary = "Get a single item")
   @PreAuthorize("hasRole('ROLE_USER')")
   @GetMapping("")
   public UCSBDiningCommonsMenuItems getById(@Parameter(name = "id") @RequestParam Long id) {
-    UCSBDiningCommonsMenuItems item =
+    UCSBDiningCommonsMenuItems UCSBDiningCommonsMenuItems =
         UCSBDiningCommonsMenuItemsRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(UCSBDiningCommonsMenuItems.class, id));
 
-    return item;
+    return UCSBDiningCommonsMenuItems;
   }
 
   /**
