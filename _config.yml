@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f25/team01-f25-09
 owner: ucsb-cs156-f25
 repo_name: team01-f25-09
-pull_requests: [{"author":{"id":"U_kgDOCvDUhw","is_bot":false,"login":"oyararbas","name":""},"headRefName":"oyararbas-menuitemreview-delete","number":74,"title":"Added DELETE endpoint for a specific record in MenuItemReview table","url":"https://github.com/ucsb-cs156-f25/team01-f25-09/pull/74"}]
+pull_requests: []
