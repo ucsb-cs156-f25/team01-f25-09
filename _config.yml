@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f25/team01-f25-09
 owner: ucsb-cs156-f25
 repo_name: team01-f25-09
-pull_requests: [{"author":{"id":"MDQ6VXNlcjYxMzI4MDc4","is_bot":false,"login":"viktorinkov","name":"Viktor Stanislavov Minchev"},"headRefName":"viktorinkov-add-article-put","number":69,"title":"Add updateArticle method to ArticlesController and corresponding test…","url":"https://github.com/ucsb-cs156-f25/team01-f25-09/pull/69"}]
+pull_requests: [{"author":{"id":"U_kgDOCFV2Vw","is_bot":false,"login":"laurenc06","name":"Lauren Cho"},"headRefName":"lc-RecommendationRequest-add-put","number":70,"title":"lc- Add PUT (edit) endpoint for a single record in RecommendationRequest table","url":"https://github.com/ucsb-cs156-f25/team01-f25-09/pull/70"},{"author":{"id":"MDQ6VXNlcjYxMzI4MDc4","is_bot":false,"login":"viktorinkov","name":"Viktor Stanislavov Minchev"},"headRefName":"viktorinkov-add-article-put","number":69,"title":"Add updateArticle method to ArticlesController and corresponding test…","url":"https://github.com/ucsb-cs156-f25/team01-f25-09/pull/69"}]
