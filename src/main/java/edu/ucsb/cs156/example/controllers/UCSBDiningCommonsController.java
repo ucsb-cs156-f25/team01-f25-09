@@ -69,7 +69,7 @@ public class UCSBDiningCommonsController extends ApiController {
    * @param hasDiningCam whether or not the commons has a dining cam
    * @param latitude latitude of the commons
    * @param longitude logitude of the commons
-   * @return the save diningcommons
+   * @return the save item
    */
   @Operation(summary = "Create a new commons")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
