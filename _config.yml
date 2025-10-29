@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f25/team01-f25-09
 owner: ucsb-cs156-f25
 repo_name: team01-f25-09
-pull_requests: [{"author":{"id":"MDQ6VXNlcjYxMzI4MDc4","is_bot":false,"login":"viktorinkov","name":"Viktor Stanislavov Minchev"},"headRefName":"viktorinkov-articles-get-by-id","number":64,"title":"Refactor ArticlesController to improve code structure and add error h…","url":"https://github.com/ucsb-cs156-f25/team01-f25-09/pull/64"}]
+pull_requests: [{"author":{"id":"U_kgDOCvDUhw","is_bot":false,"login":"oyararbas","name":""},"headRefName":"oyararbas-menuitemreview-getshow","number":66,"title":"Added GET (show) endpoint for single record in MenuItemReview table (#28)","url":"https://github.com/ucsb-cs156-f25/team01-f25-09/pull/66"}]
