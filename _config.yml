@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f25/team01-f25-09
 owner: ucsb-cs156-f25
 repo_name: team01-f25-09
-pull_requests: [{"author":{"id":"U_kgDOCFV2Vw","is_bot":false,"login":"laurenc06","name":"Lauren Cho"},"headRefName":"lc-RecommendationRequest-add-delete","number":76,"title":"fixed migration file","url":"https://github.com/ucsb-cs156-f25/team01-f25-09/pull/76"}]
+pull_requests: []
