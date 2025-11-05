@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-f25/team01-f25-09
 owner: ucsb-cs156-f25
 repo_name: team01-f25-09
-pull_requests: [{"author":{"id":"U_kgDOCM7ecQ","is_bot":false,"login":"davidbazan383","name":""},"headRefName":"DB-Organization-delete-for-organization-table","number":75,"title":"DB- changed name for migration table","url":"https://github.com/ucsb-cs156-f25/team01-f25-09/pull/75"}]
+pull_requests: []
