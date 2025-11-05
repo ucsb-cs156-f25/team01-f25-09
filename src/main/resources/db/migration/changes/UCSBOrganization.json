@@ -2,7 +2,7 @@
     "databaseChangeLog": [
       {
         "changeSet": {
-          "id": "UCSBOrganization-1",
+          "id": "ucsborganization-2",
           "author": "davidbazan383",
           "preConditions": [
             {
@@ -12,7 +12,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "UCSBOrganization"
+                    "tableName": "ucsborganization"
                   }
                 }
               ]
@@ -26,7 +26,7 @@
                     "column": {
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "UCSBOrganization_PK"
+                        "primaryKeyName": "ucsborganization_PK"
                       },
                       "name": "ORG_CODE",
                       "type": "VARCHAR(255)"
@@ -51,7 +51,7 @@
                     }
                   }
                 ],
-                "tableName": "UCSBOrganization"
+                "tableName": "ucsborganization"
               }
             }
           ]
