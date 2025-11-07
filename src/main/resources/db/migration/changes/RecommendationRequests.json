@@ -2,7 +2,7 @@
     "databaseChangeLog": [
       {
         "changeSet": {
-          "id": "recommendationrequests-2",
+          "id": "RecommendationRequests-2",
           "author": "laurencho",
           "preConditions": [
             {
@@ -12,7 +12,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "recommendationrequests"
+                    "tableName": "RECOMMENDATION_REQUESTS"
                   }
                 }
               ]
@@ -27,12 +27,18 @@
                       "autoIncrement": true,
                       "constraints": {
                         "primaryKey": true,
-                        "primaryKeyName": "recommendationrequests_PK"
+                        "primaryKeyName": "RECOMMENDATIONREQUESTS_PK"
                       },
                       "name": "ID",
                       "type": "BIGINT"
                     }
                   },
+                   {
+                    "column": {
+                      "name": "CODE",
+                      "type": "VARCHAR(255)"
+                    }
+                  },                  
                   {
                     "column": {
                       "name": "REQUESTER_EMAIL",
@@ -70,7 +76,7 @@
                     }
                   }
                 ],
-                "tableName": "recommendationrequests"
+                "tableName": "RECOMMENDATION_REQUESTS"
               }
             }
           ]
