@@ -2,7 +2,7 @@
     "databaseChangeLog": [
       {
         "changeSet": {
-          "id": "RecommendationRequests-2",
+          "id": "RecommendationRequests-3",
           "author": "laurencho",
           "preConditions": [
             {
@@ -33,12 +33,12 @@
                       "type": "BIGINT"
                     }
                   },
-                   {
+                  {
                     "column": {
                       "name": "CODE",
                       "type": "VARCHAR(255)"
                     }
-                  },                  
+                  },
                   {
                     "column": {
                       "name": "REQUESTER_EMAIL",
